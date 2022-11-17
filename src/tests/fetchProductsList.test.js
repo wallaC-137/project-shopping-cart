@@ -29,5 +29,8 @@ describe('Teste a função fetchProductsList', () => {
     } catch (error) {
       expect(error.message).toBe('Termo de busca não informado')
     }
+
+    const result = await fetchProductsList('asdasdadadasdadasdsa');
+    expect(() => result).toThrow();
   });
 });
