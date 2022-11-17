@@ -1,4 +1,7 @@
-import { removeCartID } from './cartFunctions';
+import { removeCartID, saveCartID, getSavedCartIDs } from './cartFunctions';
+import { fetchProduct } from './fetchFunctions';
+
+const paiCart = document.querySelector('.cart__products');
 
 // Esses comentários que estão antes de cada uma das funções são chamados de JSdoc,
 // experimente passar o mouse sobre o nome das funções e verá que elas possuem descrições!
@@ -91,6 +94,12 @@ export const createCartProductElement = ({ id, title, price, pictures }) => {
   return li;
 };
 
+export const agoraVai = async () => {
+  getSavedCartIDs().forEach(async (elementLocal) => {
+    paiCart.appendChild(createCartProductElement(await fetchProduct(elementLocal)));
+  });
+};
+
 /**
  * Função responsável por criar e retornar o elemento do produto.
  * @param {Object} product - Objeto do produto.
@@ -121,6 +130,14 @@ export const createProductElement = ({ id, title, thumbnail, price }) => {
     'product__add',
     'Adicionar ao carrinho!',
   );
+
+  cartButton.addEventListener('click', async (event) => {
+    const evento = event.target.parentNode.firstChild.innerHTML;
+    saveCartID(evento);
+    paiCart.innerHTML = '';
+    agoraVai();
+  });
+
   section.appendChild(cartButton);
 
   return section;

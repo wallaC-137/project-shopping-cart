@@ -1,6 +1,8 @@
 import { searchCep } from './helpers/cepFunctions';
-import { fetchProductsList } from './helpers/fetchFunctions';
-import { createProductElement } from './helpers/shopFunctions';
+import { fetchProductsList, fetchProduct } from './helpers/fetchFunctions';
+import { createProductElement, createCartProductElement, agoraVai } from
+  './helpers/shopFunctions';
+import { getSavedCartIDs } from './helpers/cartFunctions';
 import './style.css';
 
 document.querySelector('.cep-button').addEventListener('click', searchCep);
@@ -23,7 +25,7 @@ const msgError = () => {
 
 const AdicionaProdutos = async (param) => {
   loading();
-
+  agoraVai();
   try {
     const produtos = await fetchProductsList(param);
     produtos.forEach((element, idx) => {
