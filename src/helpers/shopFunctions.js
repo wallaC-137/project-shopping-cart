@@ -94,9 +94,25 @@ export const createCartProductElement = ({ id, title, price, pictures }) => {
   return li;
 };
 
+const preco = document.querySelector('.total-price');
+
+const valorTotalCarrinho = (param) => {
+  const precoTotal = [];
+  param.forEach((element) => precoTotal.push(Number(element)));
+  preco.innerHTML = precoTotal.reduce((acc, curr) => acc + curr, 0).toFixed(2);
+};
+
 export const agoraVai = async () => {
-  getSavedCartIDs().forEach(async (elementLocal) => {
+  const savedLocals = await Promise.all(getSavedCartIDs());
+  const soma = [];
+
+  savedLocals.forEach(async (elementLocal) => {
+    const test = await fetchProduct(elementLocal);
     paiCart.appendChild(createCartProductElement(await fetchProduct(elementLocal)));
+
+    soma.push(test.price);
+
+    valorTotalCarrinho(soma);
   });
 };
 

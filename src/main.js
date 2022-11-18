@@ -41,4 +41,18 @@ const AdicionaProdutos = async (param) => {
   }
 };
 
+const preco = document.querySelector('.total-price');
+const cart = document.querySelector('.cart__products');
+
+cart.addEventListener('click', (event) => {
+  const valorEvent = Number(event.target.parentNode.lastElementChild
+    .lastElementChild.innerHTML);
+
+  const valorTag = Number(preco.innerHTML);
+  const valorFinal = valorTag - valorEvent;
+
+  preco.innerHTML = '';
+  preco.innerHTML = valorFinal.toFixed(2);
+});
+
 AdicionaProdutos('computador');
