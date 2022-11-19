@@ -1,8 +1,7 @@
 import { searchCep } from './helpers/cepFunctions';
-import { fetchProductsList, fetchProduct } from './helpers/fetchFunctions';
-import { createProductElement, createCartProductElement, agoraVai } from
+import { fetchProductsList } from './helpers/fetchFunctions';
+import { createProductElement, agoraVai } from
   './helpers/shopFunctions';
-import { getSavedCartIDs } from './helpers/cartFunctions';
 import './style.css';
 
 document.querySelector('.cep-button').addEventListener('click', searchCep);
@@ -41,18 +40,18 @@ const AdicionaProdutos = async (param) => {
   }
 };
 
-const preco = document.querySelector('.total-price');
+const valuePrice = document.querySelector('.total-price');
 const cart = document.querySelector('.cart__products');
 
 cart.addEventListener('click', (event) => {
   const valorEvent = Number(event.target.parentNode.lastElementChild
     .lastElementChild.innerHTML);
 
-  const valorTag = Number(preco.innerHTML);
+  const valorTag = Number(valuePrice.innerHTML);
   const valorFinal = valorTag - valorEvent;
 
-  preco.innerHTML = '';
-  preco.innerHTML = valorFinal.toFixed(2);
+  valuePrice.innerHTML = '';
+  valuePrice.innerHTML = valorFinal.toFixed(2);
 });
 
 AdicionaProdutos('computador');
