@@ -21,6 +21,6 @@ export const searchCep = async () => {
 
   const apiFirst = await Promise.any(array);
   const apiFirstTratada = await apiFirst.json();
-  console.log(apiFirstTratada);
+
   getAddress(apiFirstTratada);
 };
